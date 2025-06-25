@@ -14,6 +14,8 @@ import org.modelmapper.spi.MappingContext;
 import jakarta.annotation.PostConstruct;
 
 import java.util.stream.Collectors;
+import com.granja.animal_farm_web.Entity.Enums.tipoDocumento;
+import com.granja.animal_farm_web.Entity.Enums.generoUsuario;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -54,6 +56,20 @@ public class UsuarioController { // Renombrado a mayúscula inicial
     public ResponseEntity<?> obtenerUsuarioPorId(@PathVariable int id) {
         Usuario usuario = usuarioService.obtenerUsuarioPorId(id);
         return ResponseEntity.ok(modelMapper.map(usuario, UsuarioDto.class));
+    }
+
+    @PostConstruct
+    public void initModelMapper() {
+        modelMapper.addConverter((MappingContext<String, tipoDocumento> context) -> {
+            String value = context.getSource();
+            if (value == null) return null;
+            return tipoDocumento.fromString(value);
+        });
+        modelMapper.addConverter((MappingContext<String, generoUsuario> context) -> {
+            String value = context.getSource();
+            if (value == null) return null;
+            return generoUsuario.fromString(value);
+        });
     }
 
 }
