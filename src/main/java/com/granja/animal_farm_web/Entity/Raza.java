@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Entity
 @Data
-@Table(name = "raza") // Mapea la clase a la tabla 'raza'
+@Table(name = "raza")
 public class Raza {
 
     @Id

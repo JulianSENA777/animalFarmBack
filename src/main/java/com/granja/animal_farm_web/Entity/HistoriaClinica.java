@@ -18,7 +18,7 @@ import java.util.Set;
 public class HistoriaClinica {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Indica que el ID es auto-generado por la DB (SERIAL)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "historia_clinica_id")
     private Integer historiaClinicaId;
 
@@ -62,4 +62,8 @@ public class HistoriaClinica {
     @OneToMany(mappedBy = "historiaClinica")
     @JsonIgnore
     private Set<HistoriaDesparasitacion> historiaDesparasitaciones = new HashSet<>();
+
+    @OneToMany(mappedBy = "historiaClinica", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Novedad> novedades = new HashSet<>();
+
 }

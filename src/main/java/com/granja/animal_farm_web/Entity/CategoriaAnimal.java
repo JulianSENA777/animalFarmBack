@@ -1,4 +1,4 @@
-package com.granja.animal_farm_web.Entity; // Ajusta el paquete si es necesario para que coincida con tus otras entidades
+package com.granja.animal_farm_web.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class CategoriaAnimal {
     private Integer categoriaAnimalId;
     @Column(name = "nombre_categoria", nullable = false, length = 100)
     private String nombreCategoria;
-    @Column(name = "observaciones", columnDefinition = "TEXT") // Mapea a 'observaciones', con tipo TEXT
+    @Column(name = "observaciones", columnDefinition = "TEXT")
     private String observaciones;
 
     @OneToMany(mappedBy = "categoriaAnimal", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -33,6 +33,6 @@ public void addRaza(Raza raza) {
 
     public void removeRaza(Raza raza) {
         this.razas.remove(raza);
-        raza.setCategoriaAnimal(null); // Desvincula la raza de esta categoría
+        raza.setCategoriaAnimal(null);
     }
 }

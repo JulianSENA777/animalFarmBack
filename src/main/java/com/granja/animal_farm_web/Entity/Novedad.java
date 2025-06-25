@@ -54,4 +54,7 @@ public class Novedad {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "historia_clinica_id")
+    private HistoriaClinica historiaClinica;
 }

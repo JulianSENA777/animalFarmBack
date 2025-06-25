@@ -16,18 +16,18 @@ import java.util.Set;
 @Table(name = "desparasitacion")
 public class Desparasitacion {
 
-    @Id // Marca 'desparasitacionId' como la clave primaria
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Indica que el ID es auto-generado por la DB (SERIAL)
-    @Column(name = "desparasitacion_id") // Mapea a la columna 'desparasitacion_id'
-    private Integer desparasitacionId; // Siguiendo tu convención de IDs
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "desparasitacion_id")
+    private Integer desparasitacionId;
 
-    @Column(name = "tipo_parasito", length = 100) // Mapea a 'tipo_parasito', longitud 100
+    @Column(name = "tipo_parasito", length = 100)
     private String tipoParasito;
 
-    @Column(name = "medicamento_usado", length = 100) // Mapea a 'medicamento_usado', longitud 100
+    @Column(name = "medicamento_usado", length = 100)
     private String medicamentoUsado;
 
-    @Column(name = "observaciones", columnDefinition = "TEXT") // Mapea a 'observaciones', con tipo TEXT
+    @Column(name = "observaciones", columnDefinition = "TEXT")
     private String observaciones;
 
     @OneToMany(mappedBy = "desparasitacion")

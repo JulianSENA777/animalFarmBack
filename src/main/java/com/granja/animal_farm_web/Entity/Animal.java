@@ -1,4 +1,4 @@
-package com.granja.animal_farm_web.Entity; // Ajusta el paquete si es necesario para que coincida con tus otras entidades
+package com.granja.animal_farm_web.Entity;
 
 import com.granja.animal_farm_web.Entity.Enums.estadoSaludAnimal; // Importa tu enum
 import com.granja.animal_farm_web.Entity.Enums.sexoAnimal; // Importa tu enum
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class Animal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Indica que el ID es auto-generado por la DB (SERIAL)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "animal_id")
     private Integer animalId;
 
