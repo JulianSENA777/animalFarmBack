@@ -1,12 +1,16 @@
 package com.granja.animal_farm_web.Entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.granja.animal_farm_web.Entity.Enums.tipoEvento;
 import com.granja.animal_farm_web.Entity.Enums.gravedadNovedad;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -57,4 +61,34 @@ public class Novedad {
     @ManyToOne
     @JoinColumn(name = "historia_clinica_id")
     private HistoriaClinica historiaClinica;
+
+    @ManyToMany
+    @JoinTable(
+        name = "novedad_parte_afectada",
+        joinColumns = @JoinColumn(name = "novedad_id"),
+        inverseJoinColumns = @JoinColumn(name = "parte_afectada_id")
+    )
+    private Set<ParteAfectada> partesAfectadas = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "novedad_desparasitacion",
+        joinColumns = @JoinColumn(name = "novedad_id"),
+        inverseJoinColumns = @JoinColumn(name = "desparasitacion_id")
+    )
+    private Set<Desparasitacion> desparasitaciones = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+        name = "novedad_vacuna",
+        joinColumns = @JoinColumn(name = "novedad_id"),
+        inverseJoinColumns = @JoinColumn(name = "vacuna_id")
+    )
+    private Set<Vacuna> vacunas = new HashSet<>();
+
+    @ManyToMany(mappedBy = "novedades")
+    private Set<Animal> animales = new HashSet<>();
+
+    @OneToMany(mappedBy = "Novedad", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Novedad> novedades = new HashSet<>();
 }

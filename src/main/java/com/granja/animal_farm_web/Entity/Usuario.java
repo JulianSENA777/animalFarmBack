@@ -70,7 +70,4 @@ public class Usuario {
     @Column(name = "estado")
     private boolean estado = true;
 
-    @ManyToMany(mappedBy = "usuarios")
-    private Set<HistoriaClinica> historiasClinicas = new HashSet<>();
-
 }

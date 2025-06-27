@@ -1,6 +1,5 @@
 package com.granja.animal_farm_web.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.granja.animal_farm_web.Entity.ManyToMany.HistoriaDesparasitacion;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -30,7 +29,7 @@ public class Desparasitacion {
     @Column(name = "observaciones", columnDefinition = "TEXT")
     private String observaciones;
 
-    @OneToMany(mappedBy = "desparasitacion")
-    @JsonIgnore
-    private Set<HistoriaDesparasitacion> historiaDesparasitaciones = new HashSet<>();
+
+    @ManyToMany(mappedBy = "desparasitaciones")
+    private Set<Novedad> novedades = new HashSet<>();
 }

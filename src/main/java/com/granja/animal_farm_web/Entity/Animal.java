@@ -70,4 +70,11 @@ public class Animal {
     @Column(name = "estado")
     private boolean estado = true;
 
+    @ManyToMany
+    @JoinTable(
+        name = "animal_novedad",
+        joinColumns = @JoinColumn(name = "animal_id"),
+        inverseJoinColumns = @JoinColumn(name = "novedad_id")
+    )
+    private java.util.Set<Novedad> novedades = new java.util.HashSet<>();
 }

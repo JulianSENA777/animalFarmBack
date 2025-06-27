@@ -1,8 +1,5 @@
 package com.granja.animal_farm_web.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.granja.animal_farm_web.Entity.ManyToMany.HistoriaVacuna;
-import com.granja.animal_farm_web.Entity.ManyToMany.HistoriaParteAfectada;
-import com.granja.animal_farm_web.Entity.ManyToMany.HistoriaDesparasitacion;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -51,19 +48,6 @@ public class HistoriaClinica {
     )
     private Set<Usuario> usuarios = new HashSet<>();
 
-    @OneToMany(mappedBy = "historiaClinica")
-    @JsonIgnore
-    private Set<HistoriaVacuna> historiaVacunas = new HashSet<>();
 
-    @OneToMany(mappedBy = "historiaClinica")
-    @JsonIgnore
-    private Set<HistoriaParteAfectada> historiaPartesAfectadas = new HashSet<>();
-
-    @OneToMany(mappedBy = "historiaClinica")
-    @JsonIgnore
-    private Set<HistoriaDesparasitacion> historiaDesparasitaciones = new HashSet<>();
-
-    @OneToMany(mappedBy = "historiaClinica", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Novedad> novedades = new HashSet<>();
 
 }

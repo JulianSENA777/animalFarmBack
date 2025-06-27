@@ -40,4 +40,7 @@ public class Ubicacion {
 
     @Column(name = "observaciones", columnDefinition = "TEXT")
     private String observaciones;
+
+    @ManyToMany(mappedBy = "ubicaciones")
+    private java.util.Set<Novedad> novedades = new java.util.HashSet<>();
 }
