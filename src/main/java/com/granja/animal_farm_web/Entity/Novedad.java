@@ -58,9 +58,8 @@ public class Novedad {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "historia_clinica_id")
-    private HistoriaClinica historiaClinica;
+    @ManyToMany(mappedBy = "novedades")
+    private Set<HistoriaClinica> historiasClinicas = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -89,6 +88,11 @@ public class Novedad {
     @ManyToMany(mappedBy = "novedades")
     private Set<Animal> animales = new HashSet<>();
 
-    @OneToMany(mappedBy = "Novedad", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Novedad> novedades = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+        name = "novedad_ubicacion",
+        joinColumns = @JoinColumn(name = "novedad_id"),
+        inverseJoinColumns = @JoinColumn(name = "ubicacion_id")
+    )
+    private Set<Ubicacion> ubicaciones = new HashSet<>();
 }

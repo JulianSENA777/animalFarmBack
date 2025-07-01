@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/razas")
 public class RazaController {
@@ -34,5 +36,11 @@ public class RazaController {
     public ResponseEntity<RazaDto> obtenerRazaPorId(@PathVariable int id) {
         RazaDto raza = razaBusiness.obtenerRazaPorId(id);
         return ResponseEntity.ok(raza);
+    }
+
+    @GetMapping("/{id}/llaves-foraneas")
+    public ResponseEntity<Map<String, Object>> obtenerLlavesForaneas(@PathVariable int id) {
+        Map<String, Object> llavesForaneas = razaBusiness.obtenerLlavesForaneas(id);
+        return ResponseEntity.ok(llavesForaneas);
     }
 }

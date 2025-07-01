@@ -15,8 +15,10 @@ import java.util.stream.Collectors;
 public class AnimalBusiness {
     @Autowired
     private AnimalService animalService;
+
     @Autowired
     private AnimalRepo animalRepo;
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -27,9 +29,16 @@ public class AnimalBusiness {
             throw new IllegalArgumentException("El nombre del animal ya existe");
         }
         Animal animal = modelMapper.map(animalDto, Animal.class);
+        if (animalDto.getRaza() != null) {
+            animal.setRaza(modelMapper.map(animalDto.getRaza(), com.granja.animal_farm_web.Entity.Raza.class));
+        }
         animal.setAnimalId(null);
         Animal creado = animalService.crearAnimal(animal);
-        return modelMapper.map(creado, AnimalDto.class);
+        AnimalDto creadoDto = modelMapper.map(creado, AnimalDto.class);
+        if (creado.getRaza() != null) {
+            creadoDto.setRaza(modelMapper.map(creado.getRaza(), com.granja.animal_farm_web.Dto.RazaDto.class));
+        }
+        return creadoDto;
     }
 
     private void validarCoherenciaDatos(AnimalDto animalDto) {
@@ -55,23 +64,12 @@ public class AnimalBusiness {
         return animal;
     }
 
-    public List<AnimalDto> listarAnimales() {
-        return animalService.listarAnimales().stream()
-            .map(animal -> modelMapper.map(animal, AnimalDto.class))
-            .collect(Collectors.toList());
-    }
-
     public AnimalDto actualizarAnimal(int id, AnimalDto animalDto) {
         validarExistenciaAnimal(id);
         validarCoherenciaDatos(animalDto);
         Animal animal = modelMapper.map(animalDto, Animal.class);
         Animal actualizado = animalService.actualizarAnimal(id, animal);
         return modelMapper.map(actualizado, AnimalDto.class);
-    }
-
-    public AnimalDto obtenerAnimalPorId(int id) {
-        Animal animal = validarExistenciaAnimal(id);
-        return modelMapper.map(animal, AnimalDto.class);
     }
 
     public AnimalDto cambiarEstadoSalud(int id, com.granja.animal_farm_web.Entity.Enums.estadoSaludAnimal estadoSalud) {
@@ -83,6 +81,24 @@ public class AnimalBusiness {
     public AnimalDto cambiarEstadoAnimal(int id, boolean estado) {
         validarExistenciaAnimal(id);
         Animal animal = animalService.cambiarEstadoAnimal(id, estado);
+        return modelMapper.map(animal, AnimalDto.class);
+    }
+
+    public List<AnimalDto> listarAnimales() {
+        List<Animal> animales = animalRepo.findAll();
+        return animales.stream()
+                .map(animal -> {
+                    AnimalDto dto = modelMapper.map(animal, AnimalDto.class);
+                    if (animal.getRaza() != null) {
+                        dto.setRaza(modelMapper.map(animal.getRaza(), com.granja.animal_farm_web.Dto.RazaDto.class));
+                    }
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public AnimalDto obtenerAnimalPorId(int id) {
+        Animal animal = validarExistenciaAnimal(id);
         return modelMapper.map(animal, AnimalDto.class);
     }
 }

@@ -12,6 +12,5 @@ public class RazaDto {
 
     private String observaciones;
 
-    private CategoriaAnimalDto categoriaAnimalDto;
+    private CategoriaAnimalDto categoriaAnimal;
 }
-

@@ -45,5 +45,5 @@ public class AnimalDto {
 
     private boolean estado;
 
-
+    private RazaDto raza;
 }

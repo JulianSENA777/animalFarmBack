@@ -40,14 +40,12 @@ public class HistoriaClinica {
     private Animal animal;
 
     @ManyToMany
-    @JsonIgnore
     @JoinTable(
-            name = "historia_usuario",
-            joinColumns = @JoinColumn(name = "historia_clinica_id"),
-            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+        name = "historia_novedad",
+        joinColumns = @JoinColumn(name = "historia_clinica_id"),
+        inverseJoinColumns = @JoinColumn(name = "novedad_id")
     )
-    private Set<Usuario> usuarios = new HashSet<>();
-
+    private Set<Novedad> novedades = new HashSet<>();
 
 
 }
